@@ -1,0 +1,69 @@
+name: proactive-checkins
+version: 1.0.0
+description: >
+  Optional, configurable proactive check-ins. Hermes occasionally sends a
+  short, warm follow-up message when the conversation has been idle, the user
+  seems to have left off mid-thread, or there's something worth circling back
+  on. Fully off by default — enable explicitly in config.
+author: "@rick"
+hooks:
+  - on_session_start
+  - on_session_end
+requires_env: []
+config:
+  type: object
+  required: []
+  properties:
+    enabled:
+      type: boolean
+      default: false
+      description: "Enable proactive check-ins. Default: false (opt-in)."
+    frequency_minutes:
+      type: integer
+      default: 60
+      description: "How often to check (in minutes). Default: 60."
+    quiet_hours:
+      type: string
+      default: ""
+      description: "Quiet hours window, e.g. '22:00-08:00'. Empty = no quiet hours."
+    timezone:
+      type: string
+      default: "UTC"
+      description: "Timezone for quiet hours. Default: UTC."
+    max_per_day:
+      type: integer
+      default: 2
+      description: "Maximum check-ins to send per calendar day. Default: 2."
+    idle_minutes:
+      type: integer
+      default: 120
+      description: "Minimum idle time before a check-in is considered (minutes). Default: 120."
+    telegram_chat_id:
+      type: string
+      default: ""
+      description: "Telegram chat ID to send check-ins to. Default: empty (use session origin)."
+    style:
+      type: string
+      default: "gentle"
+      description: "Check-in style: gentle | friendly | minimal. Default: gentle."
+    checkin_types:
+      type: array
+      items:
+        type: string
+      default:
+        - casual_checkin
+        - resume_prompt
+        - unfinished_thread_nudge
+      description: "Which check-in types to use. Options: casual_checkin, resume_prompt, unfinished_thread_nudge."
+    model:
+      type: string
+      default: "auto"
+      description: "Model to use for generating check-in text. Default: auto (cheapest)."
+    provider:
+      type: string
+      default: ""
+      description: "Provider for the check-in model. Default: empty (use configured default)."
+    state_dir:
+      type: string
+      default: ""
+      description: "Directory for state files. Default: ~/.hermes/plugins/proactive-checkins/state."

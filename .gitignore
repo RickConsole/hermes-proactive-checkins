@@ -1,0 +1,12 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+
+# State — personal, never commit
+state/
+
+# Environment — secrets live in ~/.hermes/.env
+.env
+.env.local
+*.env
